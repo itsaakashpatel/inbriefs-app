@@ -13,16 +13,19 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.inbriefsapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.inbriefsapp"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
-    }
+    },
+    "scheme": "inbriefsapp"
   }
 }
