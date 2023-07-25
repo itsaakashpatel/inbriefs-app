@@ -14,7 +14,6 @@ function Login() {
     iosClientId: process.env.IOS_CLIENT_ID,
     expoClientId: process.env.EXPO_CLIENT_ID,
   });
-  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     logIn();
@@ -29,7 +28,7 @@ function Login() {
         await getUserInfo(authentication.accessToken);
       }
     } else {
-      setUserInfo(JSON.parse(userInfo));
+      //User is already logged in so navigate to home screen
       navigation.navigate("Home");
     }
   }
@@ -46,12 +45,15 @@ function Login() {
       );
 
       const userInfoResponse = await response.json();
+      userInfoResponse.accessToken = token;
 
       await AsyncStorage.setItem("userInfo", JSON.stringify(userInfoResponse));
-      setUserInfo(userInfoResponse);
+      //Once user is logged in navigate to home screen
       navigation.navigate("Home");
     } catch (error) {
       console.error("ERROR!", error);
+      //If there is any error then navigate to login screen
+      navigation.navigate("Login");
     }
   };
 

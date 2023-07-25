@@ -4,15 +4,28 @@ import { GLOBAL_COLORS } from "../../styles/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import * as AuthSession from "expo-auth-session";
 
 function Header() {
   const navigation = useNavigation();
   const logout = async () => {
-    try {
-      await AsyncStorage.removeItem("userInfo");
-      navigation.navigate("Login");
-    } catch (error) {
-      console.log("Error in logout", error);
+    const userInfo = await AsyncStorage.getItem("userInfo");
+
+    if (JSON.parse(userInfo)?.accessToken) {
+      const token = JSON.parse(userInfo)?.accessToken;
+      console.log("🚀 ~ file: header.jsx:15 ~ logout ~ token:", token);
+      try {
+        await AuthSession.revokeAsync(
+          { token },
+          { revocationEndpoint: "https://oauth2.googleapis.com/revoke" }
+        );
+        await AsyncStorage.removeItem("userInfo");
+        navigation.navigate("Login");
+      } catch (error) {
+        console.log("Error in logout", error);
+      }
+    } else {
+      console.log("ELSE");
     }
   };
 
