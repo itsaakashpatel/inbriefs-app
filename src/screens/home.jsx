@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { BASE_TEXT } from "../styles/global";
-import Header from "../components/layout/header";
 import { getCurrentUser } from "./../utils/currentUser";
 import Layout from "../components/layout";
 
 export default function Home() {
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const userInfo = await getCurrentUser();
+      setUserInfo(JSON.parse(userInfo));
+    };
+
+    getUserInfo();
+  }, []);
+
   return (
     <Layout>
-      <Text style={styles.mainText}>Home</Text>
+      <Text style={styles.mainText}>{userInfo?.name}</Text>
     </Layout>
   );
 }
