@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { getCurrentUser } from "./../utils/currentUser";
+import { getCurrentUser } from "../utils/currentUser";
 import Layout from "../components/layout";
-import api from "./../api";
+import api from "../api";
 
-export default function Home() {
+export default function Feed() {
   const [userInfo, setUserInfo] = useState(null);
   const [data, setData] = useState([]);
 
