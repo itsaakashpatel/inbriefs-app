@@ -5,11 +5,11 @@ import LoginScreen from "./../screens/login";
 import { GLOBAL_COLORS } from "../styles/colors";
 import { StyleSheet } from "react-native";
 import FeedScreen from "../screens/feed";
-import SettingsScreen from "../screens/settings";
-import TrendingScreen from "../screens/trending";
+import BookmarksScreen from "../screens/bookmarks";
 import AllNewsScreen from "../screens/all-news";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ProfileScreen from "../screens/profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -41,25 +41,28 @@ const DashboardNavigator = () => {
             tabBarIcon: ({ focused }) => (
               <FontAwesome name="newspaper-o" size={24} color="white" />
             ),
-            headerShown: false,
           }}
         />
         <Tab.Screen
-          name="Trending"
-          component={TrendingScreen}
+          name="Bookmarks"
+          component={BookmarksScreen}
           options={{
             tabBarIcon: ({ focused }) => (
-              <MaterialIcons name="trending-up" size={24} color="white" />
+              <MaterialIcons name="bookmark" size={24} color="white" />
             ),
             headerShown: false,
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
+          name="Profile"
+          component={ProfileScreen}
           options={{
             tabBarIcon: ({ focused }) => (
-              <MaterialIcons name="settings" size={24} color="white" />
+              <MaterialIcons
+                name="supervised-user-circle"
+                size={24}
+                color="white"
+              />
             ),
             headerShown: false,
           }}

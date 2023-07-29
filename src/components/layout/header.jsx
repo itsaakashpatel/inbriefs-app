@@ -31,7 +31,7 @@ function Header() {
 
   return (
     <View style={styles.container}>
-      <MaterialIcons name="settings" size={24} color="white" />
+      <MaterialIcons name="notifications" size={24} color="white" />
       {/* <Image
         height={20}
         source={require("../../assets/logo.png")}
