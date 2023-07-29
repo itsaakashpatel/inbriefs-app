@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./header";
-import Footer from "./footer";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 function Layout({ showHeader = true, showFooter = true, children }) {
@@ -11,9 +10,6 @@ function Layout({ showHeader = true, showFooter = true, children }) {
 
       {/* Content */}
       <View style={styles.content}>{children}</View>
-
-      {/* Footer */}
-      {showFooter && <Footer />}
     </SafeAreaView>
   );
 }
@@ -26,7 +22,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20,
+    padding: 50,
     justifyContent: "center",
     alignItems: "center",
   },

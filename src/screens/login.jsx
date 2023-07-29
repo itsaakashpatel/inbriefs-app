@@ -28,6 +28,7 @@ function Login() {
         await getUserInfo(authentication.accessToken);
       }
     } else {
+      console.log("User is already logged in");
       //User is already logged in so navigate to home screen
       navigation.navigate("Home");
     }
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "flex-start",
-    marginLeft: 40,
+    marginHorizontal: 25,
   },
   title: {
     ...BASE_TEXT,
