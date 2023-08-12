@@ -7,15 +7,23 @@ import { BASE_TEXT } from "../styles/global";
 import { GLOBAL_COLORS } from "../styles/colors";
 import GoogleButton from "../components/buttons/social/google";
 import { makeRedirectUri } from "expo-auth-session";
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
+import db from "../database/config";
 
 function Login() {
   const navigation = useNavigation();
-  console.log("expoClientId",process.env.EXPO_CLIENT_ID);
+  console.log("expoClientId", process.env.EXPO_CLIENT_ID);
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: process.env.ANDROID_CLIENT_ID,
     iosClientId: process.env.IOS_CLIENT_ID,
     expoClientId: process.env.EXPO_CLIENT_ID,
-    redirectUri: makeRedirectUri({ useProxy: true })
+    redirectUri: makeRedirectUri({ useProxy: true }),
   });
 
   useEffect(() => {
@@ -50,10 +58,40 @@ function Login() {
 
       const userInfoResponse = await response.json();
       userInfoResponse.accessToken = token;
+      userInfoResponse.isHdImagesEnabled = false;
+      //Set data to firestore
+      const userRef = doc(db, "data", userInfoResponse.id);
 
-      await AsyncStorage.setItem("userInfo", JSON.stringify(userInfoResponse));
-      //Once user is logged in navigate to home screen
-      navigation.navigate("Home");
+      //Check if user is already stored or not
+
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        console.log("User already exists");
+        userInfoResponse.isHdImagesEnabled = userDoc.data().isHdImagesEnabled;
+
+        await AsyncStorage.setItem(
+          "userInfo",
+          JSON.stringify(userInfoResponse)
+        );
+        //Once user is logged in navigate to home screen
+        navigation.navigate("Home");
+      } else {
+        await setDoc(userRef, {
+          id: userInfoResponse.id,
+          name: userInfoResponse.name,
+          email: userInfoResponse.email,
+          isHdImagesEnabled: false,
+          savedNews: [],
+        });
+
+        await AsyncStorage.setItem(
+          "userInfo",
+          JSON.stringify(userInfoResponse)
+        );
+        //Once user is logged in navigate to home screen
+        navigation.navigate("Home");
+      }
     } catch (error) {
       console.error("ERROR!", error);
       //If there is any error then navigate to login screen

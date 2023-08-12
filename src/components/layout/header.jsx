@@ -29,13 +29,8 @@ function Header() {
     }
   };
 
-  const notification = async () => {
-    navigation.navigate("Notifications"); 
-  };
-
   return (
     <View style={styles.container}>
-      <MaterialIcons name="notifications" size={24} color="white" onPress={() => notification()} />
       {/* <Image
         height={20}
         source={require("../../assets/logo.png")}
