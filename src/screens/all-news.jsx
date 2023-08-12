@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, FlatList, StyleSheet } from "react-native";
 import api from "../api";
 import { randomUUID } from "expo-crypto";
-import NewsItem from "../components/news";
+import NewsItem from "../components/news/index";
 import NewsItemLoader from "../components/loaders/news-item";
 import { NewsItemsLoaderCounts } from "../utils/loaders";
 

@@ -6,13 +6,16 @@ import { useNavigation } from "@react-navigation/native";
 import { BASE_TEXT } from "../styles/global";
 import { GLOBAL_COLORS } from "../styles/colors";
 import GoogleButton from "../components/buttons/social/google";
+import { makeRedirectUri } from "expo-auth-session";
 
 function Login() {
   const navigation = useNavigation();
+  console.log("expoClientId",process.env.EXPO_CLIENT_ID);
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: process.env.ANDROID_CLIENT_ID,
     iosClientId: process.env.IOS_CLIENT_ID,
     expoClientId: process.env.EXPO_CLIENT_ID,
+    redirectUri: makeRedirectUri({ useProxy: true })
   });
 
   useEffect(() => {
