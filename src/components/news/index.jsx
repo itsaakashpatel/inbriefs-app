@@ -1,36 +1,34 @@
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, getDoc, doc, updateDoc } from "firebase/firestore";
 
-import firebase from "firebase/app";
-import db from "../../database/config";
+function NewsItem({ item, user }) {
+  const fireStore = getFirestore();
 
-function NewsItem({ item }) {
-  const firestore = getFirestore();
-  const dbCollectionRef = collection(firestore, "bookmarks"); // Corrected this line
-
-  const bookMarkArticle = async () => {
+  const saveArticleHandler = async () => {
     try {
-      await addDoc(dbCollectionRef, {
-        newsItemId: item.id,
-        // You can add more fields as needed
-      });
+      if (user?.id) {
+        const userDocRef = doc(fireStore, "data", user.id);
 
-      console.log("News item bookmarked!");
+        //Get existing data
+        const docSnap = await getDoc(userDocRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const savedNewsData = data.savedNews || [];
+          const updateData = [...savedNewsData, { ...item }];
+
+          //Update data
+          await updateDoc(userDocRef, { savedNews: updateData });
+          console.log("News item bookmarked!");
+        } else {
+          console.log("No such document!");
+        }
+      }
     } catch (error) {
-      console.error("Error bookmarking news item: ", error);
+      console.error("Error updating savedNews:", error);
     }
   };
-
-  if (user === null) {
-    return (<Text>Loading...</Text>);
-  }
-
-  if (user ==!null) {
-    bookMarkArticle();
-  }
 
   return (
     <View style={styles.content} key={item.id}>
@@ -41,7 +39,7 @@ function NewsItem({ item }) {
       <View style={styles.mainText}>
         <Text>{item.title}</Text>
       </View>
-      <TouchableOpacity onPress={bookMarkArticle}>
+      <TouchableOpacity onPress={() => saveArticleHandler()}>
         <MaterialIcons name="bookmark" size={24} color="black" />
       </TouchableOpacity>
     </View>
