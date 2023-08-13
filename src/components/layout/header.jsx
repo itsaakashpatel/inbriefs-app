@@ -31,12 +31,23 @@ function Header() {
 
   return (
     <View style={styles.container}>
-      {/* <Image
-        height={20}
-        source={require("../../assets/logo.png")}
-        resizeMode="contain"
-      /> */}
-      <Text style={{ color: "white", fontSize: 20 }}>Inbriefs</Text>
+      <View style={styles.logoContainer}>
+        <Image
+          style={{ width: 50, height: 50 }}
+          source={require("../../assets/logo.png")}
+          resizeMode="contain"
+        />
+        <Text
+          style={{
+            color: "white",
+            fontSize: 20,
+            marginLeft: 20,
+            fontWeight: "bold",
+          }}
+        >
+          Inbriefs
+        </Text>
+      </View>
       <MaterialIcons
         name="logout"
         size={24}
@@ -56,6 +67,11 @@ const styles = StyleSheet.create({
     height: 80,
     width: "100%",
     padding: 20,
+  },
+  logoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

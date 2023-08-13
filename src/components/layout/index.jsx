@@ -22,13 +22,10 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 50,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 10,
   },
   contentText: {
     fontSize: 18,
-    textAlign: "center",
   },
 });
 

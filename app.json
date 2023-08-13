@@ -14,7 +14,16 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.inbriefsapp"
+      "bundleIdentifier": "com.anonymous.inbriefsapp",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.132189040808-2u479qjum8nd6mael98dem4h1g2rc306"
+            ]
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
