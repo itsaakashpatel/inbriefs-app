@@ -10,6 +10,7 @@ import AllNewsScreen from "../screens/all-news";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ProfileScreen from "../screens/profile";
+import NewsDetailsScreen from "../screens/news-details";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +36,7 @@ const DashboardNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="AllNews"
+          name="All News"
           component={AllNewsScreen}
           options={{
             tabBarIcon: ({ focused }) => (
@@ -89,6 +90,14 @@ const AppNavigator = () => {
           component={DashboardNavigator}
           options={{
             headerShown: false, // Hide the header on the login screen
+          }}
+        />
+
+        <Stack.Screen
+          name="NewsDetails"
+          component={NewsDetailsScreen}
+          options={{
+            title: "News Content",
           }}
         />
       </Stack.Navigator>

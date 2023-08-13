@@ -23,7 +23,12 @@ function Login() {
     androidClientId: process.env.ANDROID_CLIENT_ID,
     iosClientId: process.env.IOS_CLIENT_ID,
     expoClientId: process.env.EXPO_CLIENT_ID,
-    redirectUri: makeRedirectUri({ useProxy: true }),
+    // redirectUri: makeRedirectUri({
+    //   scheme: "inbriefs",
+    //   useProxy: true,
+    //   preferLocalhost: true,
+    //   native: "inbriefs://redirect",
+    // }),
   });
 
   useEffect(() => {

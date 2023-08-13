@@ -29,6 +29,7 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
+import { parse } from "react-native-svg";
 
 // Notifications
 Notifications.setNotificationHandler({
@@ -53,13 +54,24 @@ function Profile() {
 
   useEffect(() => {
     fetchUserDetails();
+    checkNotificationStatus();
   }, []);
+
+  const checkNotificationStatus = async () => {
+    const { status } = await Notifications.getPermissionsAsync();
+
+    if (status === "granted") {
+      setNotificationsEnabled(true);
+    }
+  };
 
   // Fetch User Details from Google eMAIL
   const fetchUserDetails = async () => {
     try {
       const user = await getCurrentUser();
-      setUserDetails(JSON.parse(user));
+      const parsedUser = JSON.parse(user);
+      setUserDetails(parsedUser);
+      setHdImagesEnabled(parsedUser.isHdImagesEnabled);
       console.log(
         "🚀 ~ file: profile.jsx:63 ~ fetchUserDetails ~ JSON.parse(user):",
         JSON.parse(user)
@@ -70,6 +82,7 @@ function Profile() {
   };
 
   const updateInFirestore = async () => {
+    if (!user) return;
     try {
       const firestore = getFirestore();
       const userDocRef = doc(firestore, "data", user.id);
@@ -81,6 +94,12 @@ function Profile() {
         },
         { merge: true }
       );
+
+      const userDetails = await getCurrentUser();
+      const parsedUser = JSON.parse(userDetails);
+      parsedUser.isHdImagesEnabled = !hdImagesEnabled;
+
+      await AsyncStorage.setItem("userInfo", JSON.stringify(parsedUser));
 
       console.log("User details updated in Firestore.");
     } catch (error) {
@@ -120,7 +139,7 @@ function Profile() {
     const id = await Notifications.scheduleNotificationAsync({
       content: {
         title: "InBriefs News",
-        body: "Check the recent news",
+        body: "You enabled notifications, thanks!",
         data: { image: require("../assets/logo.png") },
       },
       trigger: {
@@ -192,7 +211,11 @@ function Profile() {
           {/* Notifications Details */}
           <View style={styles.notificationsContainer}>
             <View style={styles.notificationsRow}>
-              <MaterialIcons name="notifications" size={24} color="black" />
+              <MaterialIcons
+                name="notifications"
+                size={24}
+                color={GLOBAL_COLORS.PRIMARY}
+              />
               <Text style={styles.notificationsTitle}>Notifications:</Text>
               <Switch
                 value={notificationsEnabled}
@@ -205,7 +228,11 @@ function Profile() {
 
           {/* HD Images Toggle */}
           <View style={styles.toggleContainer}>
-            <MaterialIcons name="image" size={24} color="black" />
+            <MaterialIcons
+              name="image"
+              size={24}
+              color={GLOBAL_COLORS.PRIMARY}
+            />
             <Text style={styles.toggleText}>HD Images</Text>
             <Switch
               value={hdImagesEnabled}
@@ -287,6 +314,7 @@ const styles = StyleSheet.create({
   notificationsTitle: {
     fontSize: 16,
     marginRight: 130,
+    marginLeft: 10,
   },
   notificationsRow: {
     flexDirection: "row",
@@ -326,6 +354,7 @@ const styles = StyleSheet.create({
   toggleText: {
     fontSize: 16,
     marginRight: 150,
+    marginLeft: 10,
   },
 });
 
