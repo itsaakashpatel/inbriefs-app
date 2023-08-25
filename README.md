@@ -11,7 +11,7 @@ Welcome to Inbriefs, the ultimate news app that delivers concise news excerpts i
 - **Personalized Feed**: Tailor your news feed to your interests, so you're always informed about what matters to you.
 - **Engagement Options**: Like, share, and bookmark news snippets to revisit or share them easily.
 - **Night Mode**: Enjoy reading the news comfortably in low-light conditions with the built-in night mode.
-- **Social Login**: Sign in conveniently using your social media accounts for a hassle-free experience.
+- **Social Login**: Sign in conveniently using your google accounts for a hassle-free experience.
 
 ## Tech Stacks
 
@@ -20,14 +20,10 @@ Welcome to Inbriefs, the ultimate news app that delivers concise news excerpts i
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 
-## Screenshots
+## Demo
 
-![Screenshot 1](path/to/screenshot1.png)
-*Caption for Screenshot 1*
-
-![Screenshot 2](path/to/screenshot2.png)
-*Caption for Screenshot 2*
+Link: https://cln.sh/mhF0vGCH
 
 ## License
-This project is licensed under the MIT License.
 
+This project is licensed under the MIT License.
