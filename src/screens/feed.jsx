@@ -8,11 +8,13 @@ import { NewsItemsLoaderCounts } from "../utils/loaders";
 import NewsItem from "../components/news";
 import { randomUUID } from "expo-crypto";
 import UserStats from "../components/stats";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Feed() {
   const [userInfo, setUserInfo] = useState(null);
   const [trendingStories, setTrendingStories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const isFocused = useIsFocused();
 
   const fetchData = async () => {
     try {
@@ -43,6 +45,12 @@ export default function Feed() {
     getUserInfo();
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchData();
+    }
+  }, [isFocused]);
 
   if (isLoading) {
     return (
