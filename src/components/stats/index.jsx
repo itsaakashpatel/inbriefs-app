@@ -7,7 +7,7 @@ import { GLOBAL_COLORS } from "../../styles/colors";
 const Stats = ({ userId }) => {
   const [userData, setUserData] = useState({
     savedArticles: 0,
-    totalAppViews: 0,
+    totalAppViews: 20,
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,7 +31,7 @@ const Stats = ({ userId }) => {
         const data = docSnap.data();
         setUserData({
           savedArticles: data.savedNews ? data.savedNews.length : 0,
-          totalAppViews: data.totalAppViews ? data.totalAppViews : 0,
+          totalAppViews: data.totalAppViews ? data.totalAppViews : 25,
         });
       }
     } catch (error) {

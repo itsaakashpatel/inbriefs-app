@@ -51,7 +51,6 @@ const DashboardNavigator = () => {
             tabBarIcon: ({ focused }) => (
               <MaterialIcons name="bookmark" size={24} color="white" />
             ),
-            headerShown: false,
           }}
         />
         <Tab.Screen

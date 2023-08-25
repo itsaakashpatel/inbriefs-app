@@ -35,8 +35,7 @@ function AllNews() {
           "🚀 ~ file: all-news.jsx:22 ~ fetchData ~ response:",
           response.data.length
         );
-        setData((prevState) => [
-          ...prevState,
+        setData([
           ...response.data.map((newsItem) => ({
             id: randomUUID(),
             ...newsItem,
